@@ -4,28 +4,28 @@ import { FaMoon, FaSun } from 'react-icons/fa';
 
 import { AddTodo } from './components/AddTodo';
 import { TodoList } from './components/TodoList';
-import { Task, todoExample } from './constants';
+import { exampleTasks, Task, TASK_STORAGE_KEY } from './constants';
 
 function App() {
-  const [todoList, setTodoList] = useState<Task[]>(() => {
-    const context = localStorage.getItem('todo');
-    if (typeof context === 'string') {
-      return JSON.parse(context);
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    const tasks = localStorage.getItem(TASK_STORAGE_KEY);
+    if (typeof tasks === 'string') {
+      return JSON.parse(tasks);
     }
-    return todoExample;
+    return exampleTasks;
   });
 
   const { colorMode, toggleColorMode } = useColorMode();
 
   const addTodo = (todo: Task): void => {
-    setTodoList([...todoList, todo]);
+    setTasks([...tasks, todo]);
   };
 
   const delTodo = (id: string): void => {
-    const newTodo = todoList.filter((todo) => {
+    const newTodo = tasks.filter((todo) => {
       return todo.id !== id;
     });
-    setTodoList(newTodo);
+    setTasks(newTodo);
   };
 
   return (
@@ -54,7 +54,7 @@ function App() {
       </Heading>
 
       {/* todo */}
-      <TodoList todoCollection={todoList} delTodo={delTodo} />
+      <TodoList todoCollection={tasks} delTodo={delTodo} />
 
       {/* add todo form */}
       <AddTodo add={addTodo} />

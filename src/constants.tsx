@@ -6,7 +6,7 @@ export interface Task {
   text: string;
 }
 
-export const todoExample: Task[] = [
+export const exampleTasks: Task[] = [
   {
     id: nanoid(),
     text: 'item1',
@@ -23,3 +23,5 @@ export const theme = extendTheme({
     useSystemColorMode: false,
   },
 });
+
+export const TASK_STORAGE_KEY = 'tasks';
